@@ -18,6 +18,7 @@ jobs:
           node-version: "22"
           cache: npm
       - run: npm install --no-audit --no-fund
+      - run: npm run prepare:workspace
       - run: npm test
       - run: npm run typecheck
       - run: npm run lint

@@ -18,7 +18,14 @@
     "check:auth": "node scripts/check-auth-invariant.mjs",
     "test": "node --test 'scripts/**/*.test.mjs' && node --experimental-strip-types --test src/lib/app-data/app-data.test.ts src/lib/app-data/readiness-schedule.test.ts src/lib/auth/gate-identity.test.ts src/lib/auth/sign-in-gate.test.ts src/lib/preview-path-prefix.test.ts",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare:workspace": "node scripts/prepare-workspace.mjs",
+    "predev": "npm run prepare:workspace",
+    "prebuild": "npm run prepare:workspace",
+    "prepreview": "npm run prepare:workspace",
+    "pretest": "npm run prepare:workspace",
+    "pretypecheck": "npm run prepare:workspace",
+    "prelint": "npm run prepare:workspace"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.4",
