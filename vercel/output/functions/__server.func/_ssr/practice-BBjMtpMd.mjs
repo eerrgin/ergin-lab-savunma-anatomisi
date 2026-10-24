@@ -1,0 +1,383 @@
+//#region node_modules/.nitro/vite/services/ssr/assets/practice-BBjMtpMd.js
+/** Kurmaca kurumlar. Gerçek marka taklidi veya gönderilebilir şablon değildir. */
+var drills = [
+	{
+		id: "sms-kapatma",
+		channel: "SMS",
+		fromName: "Kuzey Bank",
+		fromAddr: "kısa numara · gönderen adı kolay taklit edilir",
+		subject: "Hesabınız 2 saat içinde kapanacak",
+		body: "Sayın müşterimiz, olağandışı işlem nedeniyle kartınız askıya alındı. Kimliğinizi doğrulamazsanız hesap kapanır. Hemen bağlantıya dokunun ve şifrenizi girin. Kuzey Bank güvenlik.",
+		risky: true,
+		why: "Banka korku ve süre koyup seni kendi uygulamasının dışındaki bir yazıya şifre yazmaya çağırıyorsa bu bir oltalamadır. Gerçek banka, şifreni bir kısa mesajın içinden istemez.",
+		signals: [
+			"Korku ve yapay süre",
+			"Uygulamayı sen açmak yerine onların metnine dokunman isteniyor",
+			"Parola veya kart bilgisi, mesajın içinden toplanıyor",
+			"Gönderen adı kurum gibi görünse de numara kanıt değildir"
+		]
+	},
+	{
+		id: "otp-arkadas",
+		channel: "Mesaj",
+		fromName: "Tanıdık görünen bir profil",
+		fromAddr: "sosyal uygulama içi mesaj",
+		subject: "Kodu bana okur musun, düştüm",
+		body: "Kanka hesabım kilitlendi, destek benden kod istiyor ama telefonum yanımda değil. Sana bir kod gelecek, onu buraya yazman yeter. 30 saniyen var, sonra hesap gidiyor.",
+		risky: true,
+		why: "Tek kullanımlık kod, o anda oturum açmaya çalışan kişinindir. Onu okuyan, hesabı teslim eder. Gerçek destek, arkadaşın veya eşin bu kodu isteyemez.",
+		signals: [
+			"Tek kullanımlık kodun başkasına okunması",
+			"Aciliyet ve utanç baskısı",
+			"Destek bahanesi",
+			"Tanıdık yüz, tanıdık talep değildir; hesap ele geçirilmiş olabilir"
+		]
+	},
+	{
+		id: "sifre-sifirlama",
+		channel: "E-posta",
+		fromName: "Atölye Notları",
+		fromAddr: "no-reply@atolye-notlari.example",
+		subject: "Parola sıfırlama isteğin",
+		body: "Bu isteği az önce sen başlattın. Sıfırlama sayfasını zaten açık olan resmi uygulamadan sürdür. Bu mektup yeni bir bağlantı dayatmıyor, parola istemiyor, ek dosya taşımıyor. İsteği sen yapmadıysan mektuptaki bağlantıya değil, uygulamaya kendin girip oturumları kapat.",
+		risky: false,
+		why: "Güvenli olan, mektubun şık durması değil: talebin senin başlattığın işe uyması, senden sır istenmemesi ve asıl işi senin açtığın uygulamanın içinden bitirebilmen.",
+		signals: [
+			"İstek senden çıktı",
+			"Parola, kod veya kart bu mektupta istenmiyor",
+			"Ek dosya ve kısa link yok",
+			"Şüphe varsa mektuptaki adrese değil, yer imine güvenirsin"
+		]
+	},
+	{
+		id: "iban",
+		channel: "E-posta",
+		fromName: "Ada Kaya · muhasebe",
+		fromAddr: "ada.kaya@tedarik-defter.example",
+		subject: "Bu ayki ödemenin IBAN’ı değişti",
+		body: "Merhaba, bankamız değişti. Bugünkü ödemeyi yeni hesaba yapın, dekontu yanıtlayın. Eski IBAN artık geçersiz. Yönetim onayladı, acele edelim, vade bugün.",
+		risky: true,
+		why: "Ödeme hedefini değiştiren her talep, ikinci bir kanaldan doğrulanır. Daha önce konuştuğun numarayı sen ararsın. Mektuptaki numarayı, yanıtla düğmesini veya mektubun içindeki kişiyi kullanmazsın.",
+		signals: [
+			"Para nereye gidecek, o değişiyor",
+			"Acele ve sözde yönetim onayı",
+			"Yeni bir yazışma adresi",
+			"Doğrulama, mektubun kendi içinden isteniyor"
+		]
+	},
+	{
+		id: "proje-zip",
+		channel: "İş mesajı",
+		fromName: "Yeni müşteri adayı",
+		fromAddr: "brief@studio-brief.example",
+		subject: "Marka dosyasını aç, bugün seçelim",
+		body: "Portföyünü gördük. Sözleşmeyi kaçırmamak için ekteki proje klasörünü bugün çalıştır. İçinde önizleme aracı var, kurulum bir dakika. Dosyayı açmazsan iş başka ajansa gider.",
+		risky: true,
+		why: "Tanımadığın birinin gönderdiği çalıştırılabilir dosya bir iş değil, kapıdır. Tasarım dosyası gerekçesiyle acele kurulum istenmesi, kötü niyetli geliştiricinin serbest çalışanlara kurduğu en eski tuzaktır.",
+		signals: [
+			"Çalıştırma ve kurma talebi",
+			"Kaçırılacak iş baskısı",
+			"İlişki henüz güvenilir bir kanaldan doğrulanmadı",
+			"Önce bilinen adresten geri ara; dosyayı iş bilgisayarında açma"
+		]
+	},
+	{
+		id: "meslektas",
+		channel: "E-posta",
+		fromName: "Kerem Usta",
+		fromAddr: "kerem@atolye-notlari.example",
+		subject: "Yarınki toplantının notu",
+		body: "Selam, gündem aynı. Taslağı dün konuştuğumuz ortak klasöre koydum. Parola yok, link yok, bugün bir şey onaylaman gerekmiyor. Yarın masada bakarız.",
+		risky: false,
+		why: "Beklenen iş, bilinen ilişki, sır yok, acele yok. Yine de klasör adresini mektuptan ilk kez görüyorsan yer iminden aç. Güven, tanışıklık hissinden değil, talebin sakinliğinden gelir.",
+		signals: [
+			"Beklenen bir işin devamı",
+			"Sır, ödeme veya kod yok",
+			"Süre baskısı yok",
+			"Yeni bir kapı açılmıyor"
+		]
+	}
+];
+var auditItems = [
+	{
+		id: "mfa-posta",
+		audience: "birey",
+		chapter: "kimlik",
+		text: "Posta hesabımda geçiş anahtarı veya uygulama tabanlı doğrulama var. Yalnızca SMS’e güvenmiyorum."
+	},
+	{
+		id: "kasa",
+		audience: "birey",
+		chapter: "kimlik",
+		text: "Önemli hesapların parolaları birbirinden farklı ve bir parola kasasında."
+	},
+	{
+		id: "kurtarma",
+		audience: "birey",
+		chapter: "kimlik",
+		text: "Kurtarma kodları kasa veya kağıtta. Ekran görüntüsü olarak galeride durmuyor."
+	},
+	{
+		id: "kilit",
+		audience: "birey",
+		chapter: "cihaz",
+		text: "Telefonumun ekran kilidi var ve sistem güncellemelerini ertelenmiş halde bırakmıyorum."
+	},
+	{
+		id: "disk",
+		audience: "birey",
+		chapter: "cihaz",
+		text: "Disk şifrelemesi açık. Cihaz bunu varsayılan sunuyorsa ben kapatmadım."
+	},
+	{
+		id: "kod-okumam",
+		audience: "sosyal",
+		chapter: "oltalama",
+		text: "Kimseye tek kullanımlık kod okumam. Karşı taraf destek, eş veya arkadaş dese bile."
+	},
+	{
+		id: "konum",
+		audience: "sosyal",
+		chapter: "sosyal",
+		text: "Canlı konum, bilet, ev ve okul ayrıntısını herkese açık paylaşmıyorum."
+	},
+	{
+		id: "bagli-app",
+		audience: "sosyal",
+		chapter: "sosyal",
+		text: "Bağlı uygulamaları ve açık oturumları son bir yıl içinde gözden geçirdim."
+	},
+	{
+		id: "ikinci-kanal",
+		audience: "birey",
+		chapter: "oltalama",
+		text: "Para, hediye kartı veya hesap değişikliği isteğinde bildiğim numaradan geri ararım."
+	},
+	{
+		id: "tek-kopya",
+		audience: "birey",
+		chapter: "kultur",
+		text: "Önemli fotoğraf ve evrakın tek kopyası bu telefonda değil."
+	},
+	{
+		id: "nulled",
+		audience: "tasarimci",
+		chapter: "web",
+		text: "Canlı sitede varsayılan yönetici parolası, terk edilmiş eklenti ve korsan tema yok."
+	},
+	{
+		id: "gomulu",
+		audience: "tasarimci",
+		chapter: "web",
+		text: "Formlar ve üçüncü parti gömüler listede. Gereksiz olanı sökülmüş durumda."
+	},
+	{
+		id: "alan-adi",
+		audience: "tasarimci",
+		chapter: "web",
+		text: "Alan adı hesabında çok adımlı doğrulama var. Bitmiş kampanyanın DNS kaydını terk etmiyorum."
+	},
+	{
+		id: "musteri-sir",
+		audience: "tasarimci",
+		chapter: "web",
+		text: "Müşteri sırrı sohbet geçmişinde ve ortak klasörde düz metin durmuyor."
+	},
+	{
+		id: "sir-depo",
+		audience: "gelistirici",
+		chapter: "yazilim",
+		text: "Anahtarlar depoda değil. Sızdıysa yalnızca silmekle kalmam, yenisiyle değiştiririm."
+	},
+	{
+		id: "sunucu-yetki",
+		audience: "gelistirici",
+		chapter: "yazilim",
+		text: "Hassas her istekte yetki sunucuda yeniden bakılır. Düğmeyi gizlemek yetmez."
+	},
+	{
+		id: "paket",
+		audience: "gelistirici",
+		chapter: "tedarik",
+		text: "Yeni paketi veya tanımadığım depoyu çalıştırmadan yayınlayanı ve adı doğrularım."
+	},
+	{
+		id: "gunluk",
+		audience: "gelistirici",
+		chapter: "yazilim",
+		text: "Günlüklere parola, anahtar veya tam kart numarası yazmam."
+	},
+	{
+		id: "ayri-yonetici",
+		audience: "yonetici",
+		chapter: "sistem",
+		text: "Günlük gezindiğim hesap ile yönetim hesabım ayrı. Yönetimde çok adımlı doğrulama var."
+	},
+	{
+		id: "kapali-panel",
+		audience: "yonetici",
+		chapter: "sistem",
+		text: "Yönetim arayüzleri internete körlemesine açık değil. Gereksiz servis kapalı."
+	},
+	{
+		id: "yedek-prova",
+		audience: "yonetici",
+		chapter: "kultur",
+		text: "Yedekten geri yüklemeyi gerçekten denedim. Bir kopya sürekli makineye takılı değil."
+	},
+	{
+		id: "ayrilis",
+		audience: "yonetici",
+		chapter: "sistem",
+		text: "Ayrılan kişinin hesap, anahtar ve ortak kasası aynı gün kapanıyor."
+	},
+	{
+		id: "iki-kisi",
+		audience: "kurum",
+		chapter: "kultur",
+		text: "Parayı veya veriyi değiştiren talep için ikinci kanal kuralı yazılı."
+	},
+	{
+		id: "olay-yazili",
+		audience: "kurum",
+		chapter: "olay",
+		text: "Hesap ele geçince kime haber verileceği ve ilk üç adım yazılı, herkesin ulaşacağı yerde."
+	}
+];
+var phases = [
+	{
+		id: "dur",
+		minutes: "İlk dakikalar",
+		title: "Dur",
+		lead: "Hız, yeni bir bağlantıya basmak değildir. Hız, kötüleştirmemektir.",
+		do: [
+			"Şüpheli sekmeyi kapat. Kodu kimseye okuma.",
+			"Aynı cihazdan olayı anlatan yeni bir programa tıklama.",
+			"Ne gördüğünü iki cümleyle yaz: saat, hangi hesap, ne istendi."
+		],
+		dont: [
+			"Korku mesajındaki destek numarasına dönme.",
+			"Kurtaracağım diye tanımadığın bir uzak bağlantı programı kurma.",
+			"Utancınla mesajı silip yok sayma. İz, sonra lazım olur."
+		]
+	},
+	{
+		id: "temiz",
+		minutes: "10 dakika",
+		title: "Temiz bir kapıdan gir",
+		lead: "Ele geçtiğinden şüphelendiğin cihaz, düzeltmenin yapılacağı yer değildir.",
+		do: [
+			"Mümkünse başka bir telefon veya bilgisayar kullan.",
+			"Adresi kendin yaz. Mesajdaki bağlantıyı kullanma.",
+			"Önce posta hesabına gir. Diğer hesapların anahtarı çoğunlukla odur."
+		],
+		dont: ["Aynı tarayıcı profilindeki kayıtlı oturuma güvenip geçme.", "Kamu bilgisayarında parolaları tarayıcıya kaydetme."]
+	},
+	{
+		id: "oturum",
+		minutes: "İlk saat",
+		title: "Oturumu ve kapıları kapat",
+		lead: "Parolayı değiştirmek yetmez. Açık oturum, eski parolayla içeri girmiş kişiyi içeride bırakır.",
+		do: [
+			"Postanın parolasını kasadan yeni ve benzersiz yap.",
+			"Tüm oturumları kapat. Çok adımlı doğrulamayı aç veya anahtarını yenile.",
+			"Kurtarma kodlarını yeniden üret, eskisini yok say.",
+			"Yönlendirme kurallarını, filtreleri ve bağlı uygulamaları tek tek sök.",
+			"Telefon numaran ve kurtarma postası gerçekten senin mi, bak."
+		],
+		dont: ["Aynı parolayı diğer hesaplarda da bırakma.", "Yalnızca şifreyi değiştirip yönlendirme kuralını atlama. Sessiz kopya oradan gider."]
+	},
+	{
+		id: "para",
+		minutes: "Aynı gün",
+		title: "Para ve kimlik",
+		lead: "Hesap, mesaj atmak için değil fatura ve havale için de kullanılmış olabilir.",
+		do: [
+			"Banka ve ödeme uygulamalarını resmi mağazadan, kendi adresinle aç.",
+			"Tanımadığın havale, kayıtlı yeni alıcı ve kart hareketine bak.",
+			"Gerekirse kartı kendi bankandan dondur. Mektuptaki numaradan değil.",
+			"Kimlik fotokopisi veya sözleşme gittiysa banka ve ilgili kuruma not düş."
+		],
+		dont: ["Kurtarma diye birine cüzdanının kurtarma sözcüklerini okuma.", "Kayıp fazla gelsin diye tanımadığın iade sitesine kart yazma."]
+	},
+	{
+		id: "insan",
+		minutes: "Aynı gün",
+		title: "İnsanlara sen haber ver",
+		lead: "Ele geçen hesap, senin sesinle çevrene bağış, iş veya aşk hikâyesi yazar.",
+		do: [
+			"Yakın çevreye kısa yaz: bu hesaptan link ve para isteği benden değil.",
+			"Platformun kendi hesap kurtarma sayfasını kullan.",
+			"İş hesabıysa ekip sorumlusuna aynı gün söyle."
+		],
+		dont: ["Utançtan bir gün bekleme. O gün, çevrenin kandırıldığı gündür.", "Karşı tarafın verdiği kurtarma formuna parola yazma."]
+	},
+	{
+		id: "kurum",
+		minutes: "Kurumsa hemen",
+		title: "Sistemi kahramanlıkla onarma",
+		lead: "Kurum olayında amaç izi silmek değil, yayılmayı kesip izi korumaktır.",
+		do: [
+			"Yazılı listedeki kişiye haber ver. Tek başına format atma.",
+			"Şüpheli hesabın oturumunu düşür, anahtarını iptal et, paylaşılmış sırrı yenile.",
+			"Yedeğin sağlam kopyasına dokunma. Canlı diskle aynı kaderi paylaşmasın.",
+			"Ne değiştiğini saatle yaz. Ekran görüntüsü ve ileti başlıkları yeter."
+		],
+		dont: [
+			"Logları temizlemekle olayı bitirme.",
+			"Olta mektubunu herkese ek olarak iletme. Bağlantıyı tekrar dolaştırma.",
+			"Fidye ödeyerek bitmiş sayma. Ödeme, verinin geri geleceğinin sözü değildir."
+		],
+		org: ["Müşteri verisi etkilenmiş olabilir. Bildirim yükümlülüğü için aynı gün hukuk ve yönetim masaya oturur. Bu el kitabı o kararı vermez.", "Ulusal ihbar kanalı olarak USOM, kurumun kendi CSIRT hattıyla birlikte değerlendirilir."]
+	},
+	{
+		id: "sonra",
+		minutes: "İlk hafta",
+		title: "Kapanış",
+		lead: "Olay bitince alışkanlık değişmezse aynı kapı açık kalır.",
+		do: [
+			"Aynı parolayı kullandığın her hesabı sırayla benzersiz yap.",
+			"Cihazı resmi güncellemeden geçir. Tanımadığın eklentiyi kaldır.",
+			"Üç cümlelik olay notu yaz: nasıl girdi, ne gördü, hangi kapı kapandı.",
+			"Aile veya ekiple on dakika konuş. Suçlu arama, kapıyı göster."
+		],
+		dont: ["Yalnızca antivirüs kurup eski düzene dönme.", "Olayı kişiselleştirip bildiren kişiyi cezalandırma. Bildirim susarsa bir sonraki olay görünmez."]
+	}
+];
+var cadence = [
+	{
+		when: "Her hafta",
+		items: [
+			"Güncellemeyi erteleme. Telefon, bilgisayar, tarayıcı, eklenti.",
+			"Beklemediğin bir oturum uyarısı varsa aynı gün bak.",
+			"Para talebini aceleyle onaylama."
+		]
+	},
+	{
+		when: "Her ay",
+		items: [
+			"Posta ve mağaza hesabındaki açık oturumlara bak.",
+			"Alan adı, barındırma ve depo hesaplarında çok adımlı doğrulama duruyor mu.",
+			"Yedek çalıştı mı, hata mektubu geldi mi."
+		]
+	},
+	{
+		when: "Her çeyrek",
+		items: [
+			"Bağlı uygulamaları sök. Kullanmadığın hesabı kapat.",
+			"Ayrılan kişi ve eski ajans hâlâ anahtara sahip mi.",
+			"Bir yedeği gerçekten geri yüklemeyi dene. Denenmemiş yedek, temennidir.",
+			"Kurtarma kodların hâlâ durduğun yerde mi."
+		]
+	},
+	{
+		when: "Her yıl",
+		items: [
+			"Tehdit yüzeyi sorularını yeniden sor: neyi, nerede, kim koruyor.",
+			"Ortak kasadaki gereksiz kişiyi çıkar.",
+			"Olay notunun ilk üç adımı hâlâ doğru mu, kâğıtta oku."
+		]
+	}
+];
+//#endregion
+export { phases as i, cadence as n, drills as r, auditItems as t };
