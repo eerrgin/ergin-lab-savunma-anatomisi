@@ -13,7 +13,7 @@ Bu içerik genel eğitim amaçlıdır; hukuki, adli veya profesyonel güvenlik d
 Gereksinimler: **Node.js 22.12 veya üstü** ve npm.
 
 ```sh
-npm ci
+npm install --no-audit --no-fund
 npm run dev
 ```
 

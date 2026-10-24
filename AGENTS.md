@@ -10,7 +10,7 @@ Bu depo, bireysel kullanıcılar ve yöneticiler için savunma odaklı bir siber
 
 ## Kod ve dağıtım
 - Uygulama TanStack Start/React ile kurulur. Rotalar `src/routes/`, sayfa bileşenleri `src/components/`, el kitabı metinleri `src/content/` altındadır.
-- Yerel geliştirme: `npm ci`, `npm run dev` ve `http://localhost:8080`. Doğrulama: `npm test`, `npm run typecheck`, `npm run lint`, `npm run build`.
+- Yerel geliştirme: `npm install --no-audit --no-fund`, `npm run dev` ve `http://localhost:8080`. Doğrulama: `npm test`, `npm run typecheck`, `npm run lint`, `npm run build`.
 - OAuth istemci sırrı, veritabanı URL'si veya başka gizli değerleri kaynak dosyaya, loga, ekran görüntüsüne ya da issue'ya yazma. Gerçek entegrasyon bilgileri dağıtım platformunun secret store'unda tutulur.
 - `vercel/output/`, `node_modules/`, yerel loglar ve önizleme çıktıları üretilen dosyalardır; depoya ekleme.
 - `grok/app-env.json` yalnızca hassas olmayan yerel yapılandırma içindir; gizli değer saklamak için kullanma.
