@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * Run a command with `.grok/app-env.json` merged into its environment.
+ * Run a command with workspace config (`.grok/app-env.json`) or the checked-in
+ * fallback (`grok/app-env.json`) merged into its environment.
  *
  * `dev`, `build` and `preview` all route through this wrapper, so the dev
  * server, the built bundle and the preview server can never disagree about
@@ -53,10 +54,19 @@ export function parseAppEnv(text) {
 
 /** The app env recorded under `root`, or `{}` when the file is absent. */
 export function readAppEnv(root) {
+  // Hidden workspace config takes priority. Public checkouts also carry a
+  // non-secret fallback under grok/ so clean clones get the intended defaults.
+  let checkedIn = {};
   try {
-    return parseAppEnv(readFileSync(join(root, APP_ENV_REL_PATH), "utf8"));
+    checkedIn = parseAppEnv(readFileSync(join(root, "grok/app-env.json"), "utf8"));
   } catch {
-    return {};
+    // No checked-in fallback is valid for isolated test workspaces.
+  }
+  try {
+    const workspace = parseAppEnv(readFileSync(join(root, APP_ENV_REL_PATH), "utf8"));
+    return { ...checkedIn, ...workspace };
+  } catch {
+    return checkedIn;
   }
 }
 
