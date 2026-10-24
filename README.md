@@ -1,42 +1,71 @@
 # ERGİN LAB — Savunma Anatomisi
 
-> **DEFENSIVE SECURITY EDUCATION ONLY.**
-> This repository does not contain exploits, malware, attack procedures, payloads, phishing kits, or intrusion instructions.
-> It is a protection handbook for people, designers, developers, and administrators.
+> **Kapsam:** Savunma odaklı siber güvenlik eğitimi. Bu depo istismar kodu, çalışan saldırı örneği, zararlı yazılım, kimlik bilgisi toplama veya yetkisiz erişim talimatı sunmaz.
 
-**Yalnızca savunma.** Bu depo istismar kodu, zararlı yazılım, saldırı prosedürü, oltalama kiti veya yetkisiz erişim tarifi içermez. Kötü niyetli geliştiriciye ve fırsatçı saldırgana karşı bağışıklık kazandırmak için yazıldı.
+ERGİN LAB; bireysel kullanıcılar, sosyal medya kullanıcıları, web tasarımcıları, geliştiriciler, sistem yöneticileri ve küçük ekipler için savunma alışkanlıklarını anlatan bir el kitabıdır. Amaç risk işaretlerini tanımak, hesapları ve sistemleri güçlendirmek, bir olay yaşandığında güvenli sırayla hareket etmektir.
 
-Yetkisiz erişim suçtur. Metin hukuki danışmanlık değildir.
+Etkileşimli araçlar yerel eğitim ve öz değerlendirme içindir. Parola cümlesi alıştırması, denetim işaretleri ve olay listesi bu tarayıcıda saklanır. Uygulama hedef sistemleri taramaz, payload çalıştırmaz veya kullanıcı adına üçüncü taraf sistemlere istek göndermez.
 
-## Dizin
+Bu içerik genel eğitim amaçlıdır; hukuki, adli veya profesyonel güvenlik danışmanlığı değildir. Yalnızca sahibi olduğunuz veya yönetmek için açık yetkiniz bulunan sistemlerde işlem yapın.
 
-Uygulamanın ana sayfası el kitabının dizinidir. Her satır bir bölüme bağlanır.
+## Yerelde çalıştırma
 
-| Kod | Bölüm | Kim için |
+Gereksinimler: **Node.js 22.12 veya üstü** ve npm.
+
+```sh
+npm ci
+npm run dev
+```
+
+Ardından `http://localhost:8080` adresini açın. Geliştirme sunucusu `scripts/with-app-env.mjs` üzerinden başlatılır. Bu yardımcı önce çalışma alanındaki `.grok/app-env.json` dosyasını, yoksa depoda bulunan hassas olmayan `grok/app-env.json` varsayılanını okur. Yerel geliştirmede kimlik doğrulama varsayılan olarak kapalıdır.
+
+Önerilen kontroller:
+
+```sh
+npm run typecheck
+npm test
+npm run lint
+npm run build
+npm run preview
+```
+
+`npm run preview`, üretim derlemesinden sonra önizlemeyi `http://127.0.0.1:8081` adresinde açar. `npm run build`, `DATABASE_URL` tanımlıysa kök `migrations/` dizinindeki bekleyen veritabanı geçişlerini uygular. Üretim veritabanı bağlantısı ile derleme yapmadan önce bu davranışı göz önünde bulundurun.
+
+## El kitabı dizini
+
+| Kod | Bölüm | Kapsam |
 | --- | --- | --- |
-| 01 | Sözleşme | Herkes. Depoyu yanlış okumamak için sınır. |
-| 02 | Tehdit yüzeyi | Herkes. Üç kapı: kimlik, insan, bakımsız sistem. |
-| 03 | Kimlik katmanı | Posta, kasa, geçiş anahtarı, kurtarma kodu. |
-| 04 | Oltalama | Acele, korku, ikinci kanal. Tarif yok, sinyal var. |
-| 05 | Sosyal medya | Profil, sahte destek, ele geçen hesabın çevreyi kandırması. |
-| 06 | Cihaz, tarayıcı, posta | Kilit, güncelleme, yönlendirme kuralı. |
-| 07 | Web tasarımcısı | Alan adı, form, korsan tema, security.txt. |
-| 08 | Geliştirici | Sır, sunucuda yetki, depo, günlük. |
-| 09 | Sistem yöneticisi | Ayrı yönetici, kapalı panel, yama, ayrılan kişi. |
-| 10 | Tedarik zinciri | Taklit paket, sahte iş, değişen IBAN. |
-| 11 | İlk saat | Hesap ele geçince sıra. |
-| 12 | Yedek ve kültür | 3-2-1, prova, utançsız bildirim. |
+| 01 | Sözleşme | Kullanım sınırı ve savunma amacı |
+| 02 | Tehdit yüzeyi | Kimlik, insan ve bakımsız sistem |
+| 03 | Kimlik katmanı | Parola kasası, geçiş anahtarı ve kurtarma |
+| 04 | Oltalama | Acele, korku ve doğrulama sinyalleri |
+| 05 | Sosyal medya | Profil, sahte destek ve hesap kurtarma |
+| 06 | Cihaz, tarayıcı, posta | Kilit, güncelleme ve güvenli ayarlar |
+| 07 | Web tasarımcısı | Alan adı, form, tema ve güvenli varsayılanlar |
+| 08 | Geliştirici | Sırlar, sunucu tarafı yetki ve günlükler |
+| 09 | Sistem yöneticisi | Yönetici hesapları, yama ve erişim kaldırma |
+| 10 | Tedarik zinciri | Paket, ödeme talebi ve üçüncü taraf riski |
+| 11 | İlk saat | Hesap ele geçirildiğinde ilk müdahale |
+| 12 | Yedek ve kültür | 3-2-1, geri yükleme provası ve bildirim |
 
-Etkileşimli parçalar: oltalama karar masası, parola cümlesi alıştırması, 24 maddelik denetim, olay listesi. Hepsi tarayıcıda kalır. Ağ taraması yapmaz.
+Etkileşimli parçalar arasında kurmaca oltalama karar masası, parola cümlesi alıştırması, 24 maddelik savunma denetimi ve olay müdahale listesi bulunur. Eğitim örneklerinde gerçek kullanıcı hesapları veya hedef sistemler kullanılmaz.
 
-## Bilinçli olarak yazılmayanlar
+## Bilinçli olarak kapsam dışında
 
-Çalışan istismar, zararlı örnek, kırma sözlüğü, oltalama kiti, uzaktan erişim tarifi, adım adım sızma. Bir tekniğin adı geçebilir; kurulumu yazılmaz. Bu eksik kasıtlıdır.
+Çalışan istismar örnekleri, exploit payload'ları, zararlı yazılım, parola kırma listeleri, oltalama kitleri, kimlik bilgisi toplama, gizli erişim, yetkisiz tarama ve adım adım sızma prosedürleri bu projeye dahil edilmez. Bir riski tanımlamak, onu uygulamaya dönüştüren talimat sunmakla aynı değildir.
 
-## Dayanak
+## Kaynaklar
 
-Kamuya açık savunma kaynakları: [CISA Secure Our World](https://www.cisa.gov/secure-our-world), [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework), [OWASP Top 10](https://owasp.org/www-project-top-ten/), [OWASP ASVS](https://owasp.org/www-project-application-security-verification-standard/), [FIDO passkeys](https://fidoalliance.org/passkeys/), [RFC 9116](https://www.rfc-editor.org/rfc/rfc9116), [USOM](https://www.usom.gov.tr/).
+- [CISA — Secure Our World](https://www.cisa.gov/secure-our-world)
+- [NIST — Cybersecurity Framework](https://www.nist.gov/cyberframework)
+- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
+- [OWASP ASVS](https://owasp.org/www-project-application-security-verification-standard/)
+- [FIDO Alliance — Passkeys](https://fidoalliance.org/passkeys/)
+- [RFC 9116 — security.txt](https://www.rfc-editor.org/rfc/rfc9116)
+- [USOM](https://www.usom.gov.tr/)
 
-## Lisans
+## Lisans ve kullanım notu
 
-MIT. Eğitim metnini saldırı anlatısına çevirip yeniden dağıtmak bu lisansın amacı değildir.
+Özgün kod ve içerik için `LICENSE` dosyasına bakın. MIT lisansı geniş yeniden kullanım izni verir; projenin savunma amacı editoryal kapsamı açıklar, MIT lisansına ek bir hukuki yasak getirmez ve belirli bir kullanım için hukuki garanti oluşturmaz. Üçüncü taraf marka, standart ve kaynakların kendi koşulları geçerlidir. Bu bir hukuki danışmanlık metni değildir.
+
+Kimlik doğrulama veya başka bir entegrasyon etkinleştirilecekse sağlayıcıya ait OAuth istemci bilgileri yalnızca dağıtım platformunun gizli değişkenlerinde tutulmalıdır. Gerçek sırları kaynak dosyaya, ekran görüntüsüne, günlüğe veya sorun kaydına eklemeyin.
