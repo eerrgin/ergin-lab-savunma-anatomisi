@@ -22,10 +22,10 @@ Ardından `http://localhost:8080` adresini açın. Geliştirme sunucusu `scripts
 Önerilen kontroller:
 
 ```sh
-npm run typecheck
 npm test
-npm run lint
 npm run build
+npm run typecheck
+npm run lint
 npm run preview
 ```
 
