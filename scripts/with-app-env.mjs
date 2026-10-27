@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 /**
- * Run a command with workspace config (`.grok/app-env.json`) or the checked-in
- * fallback (`grok/app-env.json`) merged into its environment.
+ * Run a command with local settings from `ergin-teknik-atolye/app-env.json` merged into its environment.
  *
  * `dev`, `build` and `preview` all route through this wrapper, so the dev
  * server, the built bundle and the preview server can never disagree about
