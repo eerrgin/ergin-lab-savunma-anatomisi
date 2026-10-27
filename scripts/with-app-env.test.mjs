@@ -20,7 +20,7 @@ const PRINT_FLAG = "process.stdout.write(String(process.env.VITE_AUTH_ENABLED));
 function makeWorkspace(appEnvJson) {
   const root = mkdtempSync(join(tmpdir(), "app-env-"));
   if (appEnvJson !== undefined) {
-    mkdirSync(join(root, ".ergin-teknik-atolye"), { recursive: true });
+    mkdirSync(join(root, "ergin-teknik-atolye"), { recursive: true });
     writeFileSync(join(root, APP_ENV_REL_PATH), appEnvJson);
   }
   return root;
@@ -57,13 +57,6 @@ test("an explicit process-env override wins over the file", () => {
   );
   assert.equal(merged.VITE_AUTH_ENABLED, "true");
   assert.equal(merged.PATH, "/usr/bin");
-});
-
-test("reads the checked-in ergin-teknik-atolye/app-env.json fallback", () => {
-  const root = mkdtempSync(join(tmpdir(), "app-env-fallback-"));
-  mkdirSync(join(root, "grok"), { recursive: true });
-  writeFileSync(join(root, "ergin-teknik-atolye/app-env.json"), JSON.stringify({ VITE_AUTH_ENABLED: "false" }));
-  assert.deepEqual(readAppEnv(root), { VITE_AUTH_ENABLED: "false" });
 });
 
 test("the template ships auth off", () => {
