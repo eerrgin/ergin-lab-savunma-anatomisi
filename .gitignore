@@ -12,9 +12,6 @@ vercel/output/
 .nitro/
 
 # Workspace-only settings, logs and local secrets
-.grok/
-grok/preview.log
-grok/preview.pid
 .env
 .env.*
 !.env.example

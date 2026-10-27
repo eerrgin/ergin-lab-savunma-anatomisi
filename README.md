@@ -17,7 +17,7 @@ npm install --no-audit --no-fund
 npm run dev
 ```
 
-Ardından `http://localhost:8080` adresini açın. Geliştirme sunucusu `scripts/with-app-env.mjs` üzerinden başlatılır. Bu yardımcı önce çalışma alanındaki `.grok/app-env.json` dosyasını, yoksa depoda bulunan hassas olmayan `grok/app-env.json` varsayılanını okur. Yerel geliştirmede kimlik doğrulama varsayılan olarak kapalıdır.
+Ardından `http://localhost:8080` adresini açın. Geliştirme sunucusu `scripts/with-app-env.mjs` üzerinden başlatılır. Bu yardımcı hassas olmayan yerel geliştirme ayarlarını `ergin-teknik-atolye/app-env.json` dosyasından okur. Yerel geliştirmede kimlik doğrulama varsayılan olarak kapalıdır.
 
 Önerilen kontroller:
 

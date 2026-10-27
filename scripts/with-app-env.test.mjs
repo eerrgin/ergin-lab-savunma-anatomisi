@@ -20,7 +20,7 @@ const PRINT_FLAG = "process.stdout.write(String(process.env.VITE_AUTH_ENABLED));
 function makeWorkspace(appEnvJson) {
   const root = mkdtempSync(join(tmpdir(), "app-env-"));
   if (appEnvJson !== undefined) {
-    mkdirSync(join(root, ".grok"), { recursive: true });
+    mkdirSync(join(root, ".ergin-teknik-atolye"), { recursive: true });
     writeFileSync(join(root, APP_ENV_REL_PATH), appEnvJson);
   }
   return root;
@@ -59,21 +59,13 @@ test("an explicit process-env override wins over the file", () => {
   assert.equal(merged.PATH, "/usr/bin");
 });
 
-test("reads the checked-in grok/app-env.json fallback", () => {
+test("reads the checked-in ergin-teknik-atolye/app-env.json fallback", () => {
   const root = mkdtempSync(join(tmpdir(), "app-env-fallback-"));
   mkdirSync(join(root, "grok"), { recursive: true });
-  writeFileSync(join(root, "grok/app-env.json"), JSON.stringify({ VITE_AUTH_ENABLED: "false" }));
+  writeFileSync(join(root, "ergin-teknik-atolye/app-env.json"), JSON.stringify({ VITE_AUTH_ENABLED: "false" }));
   assert.deepEqual(readAppEnv(root), { VITE_AUTH_ENABLED: "false" });
 });
 
-test("workspace app-env overrides the checked-in fallback", () => {
-  const root = mkdtempSync(join(tmpdir(), "app-env-precedence-"));
-  mkdirSync(join(root, "grok"), { recursive: true });
-  writeFileSync(join(root, "grok/app-env.json"), JSON.stringify({ VITE_AUTH_ENABLED: "false" }));
-  mkdirSync(join(root, ".grok"), { recursive: true });
-  writeFileSync(join(root, APP_ENV_REL_PATH), JSON.stringify({ VITE_AUTH_ENABLED: "true" }));
-  assert.deepEqual(readAppEnv(root), { VITE_AUTH_ENABLED: "true" });
-});
 test("the template ships auth off", () => {
   assert.deepEqual(readAppEnv(projectRoot()), { VITE_AUTH_ENABLED: "false" });
 });

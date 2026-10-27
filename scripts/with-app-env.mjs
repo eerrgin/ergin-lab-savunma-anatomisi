@@ -26,7 +26,7 @@ import { constants as osConstants } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-export const APP_ENV_REL_PATH = ".grok/app-env.json";
+export const APP_ENV_REL_PATH = "ergin-teknik-atolye/app-env.json";
 
 const VITE_PREFIX = "VITE_";
 
@@ -54,19 +54,10 @@ export function parseAppEnv(text) {
 
 /** The app env recorded under `root`, or `{}` when the file is absent. */
 export function readAppEnv(root) {
-  // Hidden workspace config takes priority. Public checkouts also carry a
-  // non-secret fallback under grok/ so clean clones get the intended defaults.
-  let checkedIn = {};
   try {
-    checkedIn = parseAppEnv(readFileSync(join(root, "grok/app-env.json"), "utf8"));
+    return parseAppEnv(readFileSync(join(root, APP_ENV_REL_PATH), "utf8"));
   } catch {
-    // No checked-in fallback is valid for isolated test workspaces.
-  }
-  try {
-    const workspace = parseAppEnv(readFileSync(join(root, APP_ENV_REL_PATH), "utf8"));
-    return { ...checkedIn, ...workspace };
-  } catch {
-    return checkedIn;
+    return {};
   }
 }
 
